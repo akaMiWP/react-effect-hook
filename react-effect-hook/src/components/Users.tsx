@@ -38,7 +38,6 @@ const Users = () => {
 
     axios
       .post("https://jsonplaceholder.typicode.com/users", newUser)
-      .then((res) => setUsers([res.data, ...users]))
       .catch((err) => {
         setError(err);
         setUsers(originalUsers);
