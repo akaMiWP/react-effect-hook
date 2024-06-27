@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ProductList from "./components/ProductList";
 import CategoryList from "./components/CategoryList";
+import Users from "./components/Users";
 
 function App() {
   const ref = useRef<HTMLIFrameElement>(null);
@@ -17,6 +18,7 @@ function App() {
         <br></br>
         <CategoryList setCategory={setCategory} />
         <ProductList category={category} />
+        <Users />
       </div>
     </div>
   );
