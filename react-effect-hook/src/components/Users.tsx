@@ -11,10 +11,15 @@ const Users = () => {
   const [error, setError] = useState<AxiosError>(null);
 
   useEffect(() => {
+    const controller = new AbortController();
     axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/usefdfdrs")
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+        signal: controller.signal,
+      })
       .then((res) => setUsers(res.data))
       .catch((err) => setError(err));
+
+    return () => controller.abort();
   }, []);
 
   return (
