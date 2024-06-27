@@ -31,8 +31,19 @@ const Users = () => {
     return () => controller.abort();
   }, []);
 
+  const addUser = () => {
+    const originalUsers = [...users];
+    const newUser: User = { id: 11, name: "Michael" };
+    setUsers([newUser, ...users]);
+
+    axios
+      .post("https://jsonplaceholder.typicode.com/users", newUser)
+      .then((res) => setUsers([res.data, ...users]))
+      .catch((err) => setError(err));
+  };
+
   const deleteUser = (user: User) => {
-    const originalUsers = users;
+    const originalUsers = [...users];
     setUsers(users.filter((u) => u.id != user.id));
     axios
       .delete("https://jsonplaceholder.typicode.com/users/" + user.id)
@@ -46,6 +57,9 @@ const Users = () => {
     <div className="mb-3">
       {error && <p className="text-danger">{error.message}</p>}
       {isLoading && <div className="spinner-border"></div>}
+      <button className="btn btn-primary mb-3" onClick={addUser}>
+        Add
+      </button>
       <ul className="list-group">
         {users.map((value) => (
           <li
